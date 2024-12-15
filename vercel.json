@@ -4,7 +4,7 @@
       "maxDuration": 60
     }
   },
-  "outputDirectory": "app/dist",
+  "outputDirectory": "frontend/dist",
   "rewrites": [
     {
       "source": "/service/(.*)",
