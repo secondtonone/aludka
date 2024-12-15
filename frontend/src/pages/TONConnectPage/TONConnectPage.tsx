@@ -23,6 +23,7 @@ import './TONConnectPage.css';
 import ta from '@/shared/api/tonapi';
 import tonweb from '@/shared/api/tonweb';
 import { AccountEvent, NftItem as HelpersNftItem } from '@ton-api/client';
+// @ts-expect-error Expect error
 import { NftItem, Address as SDKAdress } from '@ton-community/assets-sdk';
 import { Address } from '@ton/core';
 
@@ -40,6 +41,7 @@ async function getNFTData(nftAddress: string) {
     const nftItem = new NftItem(nftAddress as SDKAdress);
 
     // const nft = await nftItem.getContent(tonweb);
+    // @ts-expect-error Expect error
     const nft = await nftItem.getData(tonweb);
 
     console.log(nft);
@@ -104,6 +106,7 @@ export const TONConnectPage: FC = () => {
   const wallet = useTonWallet();
   const userFriendlyAddress = useTonAddress();
   const [events, setEvents] = useState<AccountEvent[]>([]);
+  // @ts-expect-error Expect error
   const [nfts, setNfts] = useState<HelpersNftItem[]>([]);
 
   useEffect(() => {
@@ -122,7 +125,7 @@ export const TONConnectPage: FC = () => {
       }); */
 
       const event = await fetchAccountEvents(userFriendlyAddress);
-      // @ts-expect-error
+      // @ts-expect-error Expect error
       setEvents(event);
     };
 

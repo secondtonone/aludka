@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "pnpm --filter app build",
+    "build": "pnpm --filter frontend build",
     "front:dev": "pnpm --filter frontend dev",
     "server:dev": "pnpm --filter server dev",
     "format": "prettier --config ./.prettierrc -w '**/*.{tsx,ts}' && git update-index --again",

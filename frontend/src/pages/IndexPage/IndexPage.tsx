@@ -50,7 +50,7 @@ export const IndexPage: FC = () => {
   const [currentTab, setCurrentTab] =
     useState<InsuranceOptionsProps['currentTab']>('buy');
   const { t } = useTranslation();
-  const [userInsurance, setUserInsurance] = useState<Insurance>(
+  const [userInsurance, /* setUserInsurance */] = useState<Insurance>(
     [] as Insurance
   );
   const [insurance, setInsurance] = useState<Insurance>([] as Insurance);
