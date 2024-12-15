@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  --tg-theme-text-color: #2c2f38;
+  --tg-theme-button-color: #1d86fb !important;
+
+  font-family: 'Inter', sans-serif !important;
+  font-optical-sizing: auto;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  min-height: 100vh;
+  overscroll-behavior: none;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+#root div,
+#root span {
+  --tgui--font-family: 'Inter', sans-serif !important;
+}

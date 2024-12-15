@@ -1,0 +1,14 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        TON_CENTER_API_CLIENT_KEY: ${TON_CENTER_API_CLIENT_KEY}
+    ports:
+      - "3050:3050"
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+    environment:
+      TON_CENTER_API_CLIENT_KEY: ${TON_CENTER_API_CLIENT_KEY}
+    restart: always

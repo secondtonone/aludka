@@ -1,0 +1,15 @@
+.segment-control {
+  --tgui--font-family: 'Inter', sans-serif;
+  --tgui--caption1--font_size: 14px;
+  --tgui--text_color: #2c2f38;
+}
+
+.segment-control > div > div {
+  border-radius: 0.375rem !important;
+}
+
+@media (prefers-color-scheme: dark) {
+  .segment-control {
+    --tgui--text_color: #fff;
+  }
+}

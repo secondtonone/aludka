@@ -1,0 +1,12 @@
+.ton-button button {
+  background-color: #1d86fb !important;
+  color: #fff !important;
+}
+
+.ton-button button > div {
+  color: #fff !important;
+}
+
+.ton-button button > svg > path {
+  fill: #fff !important;
+}

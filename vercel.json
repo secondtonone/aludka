@@ -1,0 +1,18 @@
+{
+  "functions": {
+    "api/serverless.ts": {
+      "maxDuration": 60
+    }
+  },
+  "outputDirectory": "app/dist",
+  "rewrites": [
+    {
+      "source": "/service/(.*)",
+      "destination": "api/serverless"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/"
+    }
+  ]
+}

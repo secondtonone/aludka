@@ -1,0 +1,13 @@
+.accordion {
+  --tgui--font-family: 'Inter', sans-serif;
+}
+
+.accordion svg {
+  color: #2C2F38;
+}
+
+@media (prefers-color-scheme: dark) {
+  .accordion svg {
+    color: #fff;
+  }
+}

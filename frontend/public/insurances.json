@@ -1,0 +1,32 @@
+[
+  {
+    "name": "Euler Finance v2",
+    "description": "Max 250k USDT",
+    "percent": "14 %",
+    "logo": "/euler-finance.png"
+  },
+  {
+    "name": "Base DeFi Pass",
+    "description": "Max 180k USDT",
+    "percent": "0.8 %",
+    "logo": "/base.png"
+  },
+  {
+    "name": "Liquid Collective",
+    "description": "Max 1.2M USDT",
+    "percent": "0.9 %",
+    "logo": "/liquidcollective.png"
+  },
+  {
+    "name": "Sky Protocol",
+    "description": "Max 20k USDT",
+    "percent": "1.3 %",
+    "logo": "/sky-money.png"
+  },
+  {
+    "name": "Request Finance",
+    "description": "Max 100k USDT",
+    "percent": "2.2 %",
+    "logo": "/request-finance.png"
+  }
+]
