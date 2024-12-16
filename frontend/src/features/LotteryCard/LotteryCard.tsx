@@ -19,7 +19,7 @@ export const LotteryCard: FC<LotteryCardProps> = ({ footer, total, currency, pri
     <div className="p-5 bg-[#1e1e1e] rounded-2xl shadow flex-col justify-start items-center gap-4 flex">
 
       <div className="h-12 flex-col justify-start items-start gap-0.5 flex w-full">
-        <div className="text-[#aaaaaa] text-sm font-normal leading-none">Всего в пуле</div>
+        <div className="text-[#aaaaaa] text-sm font-normal leading-none">{t('Total in the pool')}</div>
         <div className="text-[#fbfbfb] text-3xl font-bold uppercase leading-loose tracking-tight">{total} {currency}</div>
       </div>
 
