@@ -8,9 +8,9 @@ export const FAQPanel: FC = () => {
   const { t } = useTranslation();
 
   return (
-    <Link to="/faq" className="px-4 py-2.5 bg-transparent rounded-xl shadow border border-whity justify-between items-center flex">
-      <div className="text-black dark:text-white text-sm font-semibold">{t('FAQ')}</div>
-      <div className="text-black dark:text-white"><HelpIcon /></div>
+    <Link to="/faq" className="px-4 py-2 rounded-3xl bg-transparent shadow border border-gray_aluminum justify-between items-center flex w-full">
+      <div className="text-whity dark:text-white text-xs font-semibold">{t('How to join')}</div>
+      <div className="text-whity dark:text-white"><HelpIcon /></div>
     </Link>
   );
 };

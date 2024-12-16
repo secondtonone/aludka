@@ -29,6 +29,9 @@ module.exports = {
       gray_dark: {
         DEFAULT: '#646368',
       },
+      gray_aluminum: {
+        DEFAULT: '#3f3f3f',
+      },
       transparent: 'transparent',
       listStyleType: {
         none: 'none',
