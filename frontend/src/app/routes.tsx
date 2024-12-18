@@ -3,6 +3,7 @@ import type { ComponentType, JSX } from 'react';
 import { FAQPage } from '@/pages/FAQPage/FAQPage';
 import { IndexPage } from '@/pages/IndexPage/IndexPage';
 import { TONConnectPage } from '@/pages/TONConnectPage/TONConnectPage';
+import { WinnerPage } from '@/pages/WinnerPage/WinnerPage';
 
 interface Route {
   path: string;
@@ -12,18 +13,12 @@ interface Route {
 }
 
 export const routes: Route[] = [
-  { path: '/', title: 'Insured | Buy', Component: IndexPage },
-  { path: '/my-covers', title: 'Insured | My covers', Component: IndexPage },
-  { path: '/faq', title: 'Insured | FAQ', Component: FAQPage },
-  { path: '/cover/:cover', title: 'Insured | Cover', Component: IndexPage },
-  {
-    path: '/buy',
-    Component: IndexPage,
-    title: 'Insured | Buy',
-  },
+  { path: '/', title: 'Алексей Лудка', Component: IndexPage },
+  { path: '/winners', title: 'Алексей Лудка | Победители', Component: WinnerPage },
+  { path: '/faq', title: 'Алексей Лудка | FAQ', Component: FAQPage },
   {
     path: '/ton',
     Component: TONConnectPage,
-    title: 'Insured | Buy',
+    title: 'Алексей Лудка | Buy',
   },
 ];

@@ -1,6 +1,8 @@
+import { ChevronIcon, getPlural } from '@/shared';
 import { type FC } from 'react';
 
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router';
 
 interface LotteryCardProps {
   footer?: React.ReactNode
@@ -23,7 +25,7 @@ export const LotteryCard: FC<LotteryCardProps> = ({ footer, total, currency, pri
         <div className="text-[#fbfbfb] text-3xl font-bold uppercase leading-loose tracking-tight">{total} {currency}</div>
       </div>
 
-      <div className="text-[#f2e8fc] text-xs font-semibold leading-none text-left w-full">{priced} {currency} разыграно</div>
+      <Link to="/winners" className="text-[#f2e8fc] text-xs font-semibold leading-none text-left w-full flex flex-row items-center"><span>{priced} {currency} разыграно</span> <ChevronIcon /></Link>
 
       <div className="w-full h-32 flex-col justify-start items-start gap-2 flex">
 
@@ -42,7 +44,7 @@ export const LotteryCard: FC<LotteryCardProps> = ({ footer, total, currency, pri
 
           <div className="p-4 bg-gray_aluminum rounded-xl justify-start items-baseline gap-1 flex flex-row ">
             <span className="text-center text-[#fbfbfb] text-base font-semibold uppercase leading-tight tracking-tight ">{totalPlayers}</span>{' '}
-            <span className="text-center text-[#aaaaaa] text-xs font-normal leading-none">участников</span>
+            <span className="text-center text-[#aaaaaa] text-xs font-normal leading-none">{getPlural(totalPlayers, ['участник', 'участника', 'участников'])}</span>
           </div>
 
           <div className="p-4 bg-gray_aluminum rounded-xl justify-start gap-1 flex items-baseline">

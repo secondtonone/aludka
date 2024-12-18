@@ -1,24 +1,33 @@
 import { type FC } from 'react';
 
-import { Avatar, Cell, FixedLayout, Placeholder, Skeleton, List as TgList } from '@telegram-apps/telegram-ui';
+import { Cell, FixedLayout, Placeholder, Skeleton, List as TgList } from '@telegram-apps/telegram-ui';
 import { useTranslation } from 'react-i18next';
 
-import s from './InsuranceList.module.css';
+import { ChevronIcon, formatCurrency } from '@/shared';
+import { maskStringV2 } from 'maskdata';
+import s from './WinnersList.module.css';
 
-interface InsuranceListProps {
+interface WinnersListProps {
   content: {
-    name: string,
-    description: string,
-    percent: string,
-    logo: string
+    amount: number,
+    address: string,
+    currency: string
   }[]
   isError?: boolean
   isLoading?: boolean
   onErrorComponent?: () => React.ReactNode
   onEmptyComponent?: () => React.ReactNode
+  linkProvider: (address: string) => string
 }
 
-export const InsuranceList: FC<InsuranceListProps> = ({ content, isError, isLoading, onErrorComponent, onEmptyComponent }) => {
+const maskCardOptions = {
+  maskWith: '•',
+  unmaskedStartCharacters: 10,
+  unmaskedEndCharacters: 10,
+  maxMaskedCharacters: 25,
+};
+
+export const WinnersList: FC<WinnersListProps> = ({ content, isError, isLoading, onErrorComponent, onEmptyComponent, linkProvider }) => {
   const { t } = useTranslation();
 
   if (isLoading) return (
@@ -27,23 +36,13 @@ export const InsuranceList: FC<InsuranceListProps> = ({ content, isError, isLoad
         <Cell
           className={`${s.list} border-whity relative !mb-[10px] rounded-xl border bg-white !px-4 shadow dark:bg-black`}
           key={index}
-          after={
-            <div className="text-gray_dark dark:text-gray_light flex h-[14px] w-[24px] flex-col items-end overflow-hidden rounded-full mt-[26px] text-sm">
-              <Skeleton visible className="min-h-[14px] w-full" />
-            </div>
-          }
-          before={
-            <div className="h-[48px] w-[48px] overflow-hidden rounded-full">
-              <Skeleton visible className="h-full w-full" />
-            </div>
-          }
           description={
-            <div className="h-[14px] w-[120px] overflow-hidden rounded-full">
+            <div className="h-[14px] w-[300px] overflow-hidden rounded-full">
               <Skeleton visible className="h-[14px] w-full" />
             </div>
           }
         >
-          <div className="h-[18px] w-[200px] overflow-hidden rounded-full">
+          <div className="h-[18px] w-[50px] overflow-hidden rounded-full">
             <Skeleton visible className="h-full w-full" />
           </div>
         </Cell>
@@ -77,13 +76,10 @@ export const InsuranceList: FC<InsuranceListProps> = ({ content, isError, isLoad
   if (content.length === 0) return (<div className="h-full flex flex-col items-center justify-center !font-inter">
     <Placeholder
       className="-translate-y-1/2 w-[300px]"
-      description={t('Your insurance policies will be displayed here. Currently, there are none.')}
-      header={t('No insurances')}
+      description={t('Be the first winner!')}
+      header={t('There are no winners yet')}
     >
-      <img
-        alt="Shield"
-        src="/shield.svg"
-      />
+      <span className="text-6xl">🤷‍♂️</span>
     </Placeholder>
     {onEmptyComponent ? <FixedLayout vertical="bottom" style={{
       padding: 16
@@ -94,15 +90,16 @@ export const InsuranceList: FC<InsuranceListProps> = ({ content, isError, isLoad
 
   return (
     <TgList>
-      {content.map(({ name, description, percent, logo }) => (
-        <Cell
-          className={`${s.list} bg-white dark:bg-black rounded-xl shadow border border-whity relative !px-4 !mb-[10px]`}
-          after={<div className="pt-[26px] text-gray_dark dark:text-gray_light text-sm flex flex-col items-end">{percent}</div>}
-          before={<Avatar size={48} src={logo} className="*:!rounded-none" />}
-          description={description}
-        >
-          <span className="font-medium">{name}</span>
-        </Cell>
+      {content.map(({ amount, address, currency }) => (
+        <a href={linkProvider(address)} target="_blank" rel="noopener" key={address + amount}>
+          <Cell
+            className={`${s.list} bg-white dark:bg-black rounded-xl shadow border border-whity relative !px-4 !mb-[10px]`}
+            after={<div className="relative -top-[12px] text-gray_dark dark:text-gray_light text-sm flex flex-col items-end"> <ChevronIcon className="scale-1" /></div>}
+            description={maskStringV2(address, maskCardOptions)}
+          >
+            <span className="font-medium text-blue">{`${formatCurrency(amount)} ${currency}`}</span>
+          </Cell>
+        </a>
       ))}
     </TgList>
   );
