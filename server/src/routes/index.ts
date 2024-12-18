@@ -1,5 +1,8 @@
+import { OpenAPIHono } from "@hono/zod-openapi";
 import v1 from './v1';
 
-export {
-  v1
-};
+const app = new OpenAPIHono();
+
+app.route('/', v1)
+
+export default app;

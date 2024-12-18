@@ -1,8 +1,8 @@
-import build from '../server';
+import { handle } from 'hono/vercel';
+import app from '../server';
 
-export default async (req: unknown, res: unknown) => {
-	const app = await build();
-
-	await app.ready();
-	app.server.emit('request', req, res);
+export const config = {
+  runtime: 'edge'
 };
+
+export default handle(app);

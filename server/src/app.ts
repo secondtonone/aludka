@@ -1,60 +1,46 @@
-import fastify from 'fastify';
-import {
-  serializerCompiler,
-  validatorCompiler,
-} from 'fastify-type-provider-zod';
-import { v1 } from './routes';
+import { logger } from 'hono/logger';
 
-// import 'newrelic';
+import { OpenAPIHono } from '@hono/zod-openapi';
+import scalar from './plugins/scalar';
+import routes from './routes';
+
+import { version } from '../../package.json';
 
 const getLoggerConfig = () => {
   switch (process.env.NODE_ENV) {
     case 'test':
-      return true;
+      return false;
     case 'development':
-      return {
-        transport: {
-          target: 'pino-pretty',
-          options: {
-            translateTime: 'HH:MM:ss Z',
-            ignore: 'pid,hostname',
-          },
-        },
-      };
+      return true;
     default:
       return false;
   }
 };
 
-export async function build() {
-  const app = fastify({ logger: getLoggerConfig() });
+const app = new OpenAPIHono();
 
-  app.setValidatorCompiler(validatorCompiler);
-  app.setSerializerCompiler(serializerCompiler);
-  // app.register(db);
-
-  if (process.env.NODE_ENV === 'development') {
-    const swagger = (await import('./plugins/swagger')).default;
-    app.register(swagger);
-
-    const scalar = (await import('./plugins/scalar')).default;
-    app.register(scalar);
-  }
-
-  // app.decorate('something', 'something');
-
-
-  app.get('/', async () => {
-    return { status: 'OK' };
-  });
-
-  app.get('/service/', async () => {
-    return { status: 'OK' };
-  });
-
-  app.register(v1, { prefix: '/service' });
-
-  return app;
+if (getLoggerConfig()) {
+  app.use(logger());
 }
 
-export default build;
+
+app.get('/', (c) => c.json({ status: 'OK' }));
+
+app.get('/service/', (c) => c.json({ status: 'OK' }));
+
+app.route('/service', routes);
+
+if (process.env.NODE_ENV === 'development') {
+  app.doc('/doc', {
+    openapi: '3.0.0',
+    info: {
+      title: 'Ludka API',
+      version,
+    },
+  });
+
+  app.get('/reference', scalar());
+}
+
+
+export default app;

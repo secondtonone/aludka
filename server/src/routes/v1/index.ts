@@ -1,6 +1,8 @@
-import { FastifyInstance } from 'fastify';
+import { OpenAPIHono } from "@hono/zod-openapi";
+import winners from './winners';
 
-const v1 = async (fastify: FastifyInstance) => {
-};
+const app = new OpenAPIHono();
 
-export default v1;
+app.route('/v1', winners)
+
+export default app;

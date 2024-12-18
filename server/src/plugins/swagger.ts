@@ -1,61 +1,11 @@
-import fastifySwagger from '@fastify/swagger';
-import fastifySwaggerUI from '@fastify/swagger-ui';
-import { FastifyInstance } from 'fastify';
-import fastifyPlugin from 'fastify-plugin';
-import { createJsonSchemaTransform } from 'fastify-type-provider-zod';
+import { swaggerUI } from '@hono/swagger-ui';
 import { version } from '../../package.json';
 
-export default fastifyPlugin(async (fastify: FastifyInstance) => {
-  await fastify.register(fastifySwagger, {
-    mode: 'dynamic',
-    openapi: {
-      openapi: '3.0.0',
-      info: {
-        title: 'Tarot API',
-        version,
-      },
-      components: {
-        securitySchemes: {
-          /* Authorization: {
-            type: 'apiKey',
-            name: 'Authorization',
-            in: 'header',
-            description:
-              '',
-          }, */
-        },
-      },
-      tags: [
-        {
-          name: 'route',
-          description: 'Payment-related endpoints',
-        },
-      ],
-    },
-    transform: createJsonSchemaTransform({
-      skipList: ['/documentation/static/*'],
-    }),
+const swagger = () =>
+  swaggerUI({ 
+    url: '/doc',
+    title: 'Ludka API',
+    version,
   });
 
-  await fastify.register(fastifySwaggerUI, {
-    routePrefix: '/documentation',
-    uiConfig: {
-      docExpansion: 'list',
-      deepLinking: false,
-    },
-    uiHooks: {
-      onRequest: function (request, reply, next) {
-        next();
-      },
-      preHandler: function (request, reply, next) {
-        next();
-      },
-    },
-    staticCSP: true,
-    transformStaticCSP: (header) => header,
-    transformSpecification: (swaggerObject, request, reply) => {
-      return swaggerObject;
-    },
-    transformSpecificationClone: true,
-  });
-});
+export default swagger;
