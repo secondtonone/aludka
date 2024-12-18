@@ -1,6 +1,6 @@
 {
   "name": "server",
-  "version": "1.2.15",
+  "version": "0.0.2",
   "description": "Server for app",
   "main": "dist/server.js",
   "scripts": {

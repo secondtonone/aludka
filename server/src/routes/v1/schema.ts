@@ -1,7 +1,5 @@
 import z from 'zod';
-import { extendZodWithOpenApi } from 'zod-openapi';
-
-extendZodWithOpenApi(z);
+import 'zod-openapi/extend';
 
 export const WinnerSchema = z
   .object({
