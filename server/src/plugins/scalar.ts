@@ -1,9 +1,14 @@
 import { apiReference } from '@scalar/hono-api-reference';
 
-const scalar  = () => apiReference({
+const scalar  = (url: string) => apiReference({
     pageTitle: 'Ludka API Reference',
     spec: {
-      url: '/doc',
+      url,
+    },
+    theme: 'kepler',
+    defaultHttpClient: {
+      targetKey: 'javascript',
+      clientKey: 'axios'
     },
   });
 
