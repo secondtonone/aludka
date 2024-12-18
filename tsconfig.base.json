@@ -4,6 +4,7 @@
     "module": "CommonJS",
     "typeRoots": ["./node_modules/@types"],
     "importHelpers": true,
+    "resolveJsonModule": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
