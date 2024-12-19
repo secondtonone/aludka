@@ -6,7 +6,7 @@
     "baseUrl": ".",
     "resolveJsonModule": true,
     "moduleResolution": "bundler",
-    "module": "ES2020"
+    "module": "es2022"
   },
   "include": ["src/**/*.ts"],
   "exclude": ["dist"]
