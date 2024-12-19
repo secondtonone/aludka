@@ -5,7 +5,7 @@
     "outDir": "./dist",
     "baseUrl": ".",
     "resolveJsonModule": true,
-    "moduleResolution": "bundler",
+    "moduleResolution": "nodenext",
     "module": "ESNext",
     "target": "ESNext"
   },
