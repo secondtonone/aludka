@@ -1,7 +1,7 @@
 import { Hono } from 'hono';
 import { describeRoute } from 'hono-openapi';
 import { resolver } from 'hono-openapi/zod';
-import * as HttpStatusCodes from "stoker/http-status-codes";
+import * as HttpStatusCodes from 'stoker/http-status-codes';
 import { ErrorSchema, WinnerSchema } from './schema';
 
 const app = new Hono();
@@ -65,7 +65,8 @@ app.get('/winners', route, (c) => {
         currency: 'TON',
       },
     ],
-    HttpStatusCodes.OK);
+    HttpStatusCodes.OK
+  );
 });
 
 export default app;

@@ -5,8 +5,9 @@
     "outDir": "./dist",
     "baseUrl": ".",
     "resolveJsonModule": true,
-    "moduleResolution": "bundler",
-    "module": "ESNext"
+    "moduleResolution": "Bundler",
+    "module": "ESNext",
+    "target": "ESNext"
   },
   "include": ["src/**/*.ts"],
   "exclude": ["dist"]
