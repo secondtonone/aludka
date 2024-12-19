@@ -2,7 +2,6 @@
   "name": "server",
   "version": "0.0.2",
   "description": "Server for app",
-  "main": "dist/app.js",
   "type": "module",
   "scripts": {
     "build": "tsc",
