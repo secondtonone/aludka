@@ -6,8 +6,7 @@
     "baseUrl": ".",
     "resolveJsonModule": true,
     "moduleResolution": "bundler",
-    "module": "ESNext",
-    "target": "ESNext"
+    "module": "ES2020"
   },
   "include": ["src/**/*.ts"],
   "exclude": ["dist"]

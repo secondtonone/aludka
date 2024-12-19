@@ -1,8 +1,8 @@
 import { Hono } from 'hono';
 import { openAPISpecs } from 'hono-openapi';
 import { cors } from 'hono/cors';
-import notFound from 'stoker/middlewares/not-found';
-import onError from 'stoker/middlewares/on-error';
+/* import notFound from 'stoker/middlewares/not-found';
+import onError from 'stoker/middlewares/on-error'; */
 
 import pinoLogger from './plugins/pino-logger';
 import scalar from './plugins/scalar';
@@ -21,8 +21,8 @@ const getLoggerConfig = () => {
 
 const app = new Hono();
 
-app.onError(onError);
-app.notFound(notFound);
+/* app.onError(onError);
+app.notFound(notFound); */
 
 if (getLoggerConfig()) {
   app.use(pinoLogger());
