@@ -1,17 +1,19 @@
-import { apiReference } from '@scalar/hono-api-reference';
+import scalar from '@scalar/fastify-api-reference';
+import { FastifyInstance } from 'fastify';
+import fastifyPlugin from 'fastify-plugin';
 
-const scalar = (url: string) =>
-  apiReference({
-    pageTitle: 'Ludka API Reference',
-    spec: {
-      url,
+export default fastifyPlugin(async (fastify: FastifyInstance) => {
+  await fastify.register(scalar, {
+    routePrefix: '/reference',
+    configuration: {
+      theme: 'kepler',
+      defaultHttpClient: {
+        targetKey: 'javascript',
+        clientKey: 'axios'
+      },
+      spec: {
+        content: () => fastify.swagger(),
+      },
     },
-    theme: 'kepler',
-    defaultHttpClient: {
-      targetKey: 'javascript',
-      clientKey: 'axios',
-    },
-    layout: 'classic',
-  });
-
-export default scalar;
+  })
+});

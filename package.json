@@ -16,13 +16,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@hono/node-server": "^1.13.7",
     "@telegram-apps/init-data-node": "^1.0.4",
     "@types/node": "^22.7.5",
     "axios": "^0.27.2",
     "grammy": "^1.33.0",
     "grammy-middlewares": "^1.0.11",
-    "hono": "^4.6.14",
     "jose": "^5.9.4",
     "mixpanel": "^0.18.0",
     "newrelic": "^12.5.1",

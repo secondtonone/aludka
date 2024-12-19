@@ -1,69 +1,64 @@
-import { Hono } from 'hono';
-// import { openAPISpecs } from 'hono-openapi';
-import { cors } from 'hono/cors';
-/* import notFound from 'stoker/middlewares/not-found';
-import onError from 'stoker/middlewares/on-error'; */
-
-import pinoLogger from './plugins/pino-logger';
-// import scalar from './plugins/scalar';
-import routes from './routes';
+import cors from '@fastify/cors';
+import fastify from 'fastify';
+import {
+  serializerCompiler,
+  validatorCompiler,
+} from 'fastify-type-provider-zod';
+import { v1 } from './routes';
 
 const getLoggerConfig = () => {
   switch (process.env.NODE_ENV) {
     case 'test':
-      return false;
-    case 'development':
       return true;
+    case 'development':
+      return {
+        transport: {
+          target: 'pino-pretty',
+          options: {
+            translateTime: 'HH:MM:ss Z',
+            ignore: 'pid,hostname',
+          },
+        },
+      };
     default:
       return false;
   }
 };
 
-const app = new Hono();
+export async function build() {
+  const app = fastify({ logger: getLoggerConfig() });
 
-/* app.onError(onError);
-app.notFound(notFound); */
-
-if (getLoggerConfig()) {
-  app.use(pinoLogger());
-}
-
-if (process.env.NODE_ENV === 'production') {
-  app.use(
-    '/*',
-    cors({
-      origin: process.env.WEB_APP || '*',
+  if (process.env.NODE_ENV === 'production') {
+    app.register(cors, {
+      origin: process.env.WEB_APP,
       credentials: true,
-      allowMethods: ['GET', 'PUT', 'OPTIONS', 'POST', 'DELETE'],
-    })
-  );
+      preflightContinue: true,
+      methods: ['GET', 'PUT', 'OPTIONS', 'POST', 'DELETE'],
+    });
+  }
+
+  app.setValidatorCompiler(validatorCompiler);
+  app.setSerializerCompiler(serializerCompiler);
+
+  if (process.env.NODE_ENV === 'development') {
+    const swagger = (await import('./plugins/swagger')).default;
+    app.register(swagger);
+
+    const scalar = (await import('./plugins/scalar')).default;
+    app.register(scalar);
+  }
+
+  app.get('/', async () => {
+    return { status: 'OK' };
+  });
+
+  app.get('/service/', async () => {
+    return { status: 'OK' };
+  });
+
+  app.register(v1, { prefix: '/service' });
+
+  return app;
 }
 
-app
-  .get('/', (c) => c.json({ status: 'OK' }))
-  .get('/service/', (c) => c.json({ status: 'OK' }));
-
-app.route('/service', routes);
-
-/* if (process.env.NODE_ENV === 'development') {
-  const docPath = '/doc';
-
-  app
-    .get(
-      docPath,
-      openAPISpecs(app, {
-        documentation: {
-          info: {
-            title: 'Ludka',
-            version: '0.0.2',
-            description: 'API for Ludka',
-          },
-        },
-      })
-    )
-    .get('/reference', scalar(docPath));
-} */
-
-
-
-export default app;
+export default build;

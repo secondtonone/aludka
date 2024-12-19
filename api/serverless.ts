@@ -1,6 +1,8 @@
-import { handle } from '@hono/node-server/vercel';
-import app from '../server';
+import build from '../server';
 
-const handler = handle(app);
+export default async (req: unknown, res: unknown) => {
+	const app = await build();
 
-export default handler;
+	await app.ready();
+	app.server.emit('request', req, res);
+};

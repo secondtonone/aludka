@@ -1,18 +1,20 @@
-import { serve } from '@hono/node-server';
-import app from './app';
+import build from './app';
 
-const start = () => {
-  const port = 3002;
-  const served = serve({
-    fetch: app.fetch,
-    port,
-  });
+const start = async () => {
+  let app;
 
-  console.log(`\x1b[32m Server listening at http://localhost:${port}  \x1b[0m`);
+  try {
+    app = await build();
+    await app.listen({ port: 3002, host: '0.0.0.0' });
+  } catch (err) {
+    console.error(err);
+    process.exit(1);
+  }
 
   ['SIGINT', 'SIGTERM'].forEach((signal) => {
     process.on(signal, async () => {
-      served.close();
+      await app.close();
+  
       process.exit(0);
     });
   });

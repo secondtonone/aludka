@@ -1,12 +1,13 @@
-import { Hono } from 'hono';
+import { FastifyInstance } from 'fastify';
+
 import winners from './winners';
 
-const routes = [winners];
+const prefix = '/v1';
 
-const app = new Hono();
+const v1 = async (fastify: FastifyInstance) => {
+  fastify.register(winners, {
+    prefix,
+  });
+};
 
-routes.forEach((route) => {
-  app.route('/v1', route);
-});
-
-export default app;
+export default v1;
