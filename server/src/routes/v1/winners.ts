@@ -1,6 +1,7 @@
 import { Hono } from 'hono';
 import { describeRoute } from 'hono-openapi';
 import { resolver } from 'hono-openapi/zod';
+import * as HttpStatusCodes from "stoker/http-status-codes";
 import { ErrorSchema, WinnerSchema } from './schema';
 
 const app = new Hono();
@@ -10,7 +11,7 @@ const route = describeRoute({
   summary: 'Get winners',
   tags: ['winners'],
   responses: {
-    200: {
+    [HttpStatusCodes.OK]: {
       content: {
         'application/json': {
           schema: resolver(WinnerSchema),
@@ -18,7 +19,7 @@ const route = describeRoute({
       },
       description: 'Retrieve winners',
     },
-    400: {
+    [HttpStatusCodes.BAD_REQUEST]: {
       content: {
         'application/json': {
           schema: resolver(ErrorSchema),
@@ -32,14 +33,39 @@ const route = describeRoute({
 
 app.get('/winners', route, (c) => {
   // const { id } = c.req.valid('param')
+  /* if (!winners) {
+    return c.json(
+      {
+        code: HttpStatusCodes.NOT_FOUND,
+        message: HttpStatusPhrases.NOT_FOUND,
+      },
+      HttpStatusCodes.NOT_FOUND,
+    );
+  } */
   return c.json(
-    {
-      id: 3,
-      age: 20,
-      name: 'Ultra-man',
-    },
-    200 // You should specify the status code even if it is 200.
-  );
+    [
+      {
+        amount: 3,
+        address: 'EQBpCjQrzr2SDPvOxFmqxibc2BlXD_bt4siGCKM6Qyhpd3OP',
+        currency: 'TON',
+      },
+      {
+        amount: 2000,
+        address: 'EQBpCjQrzr2SDPvOxFmqxibc2BlXD_bt4siGCKM6Qyhpd3OP',
+        currency: 'TON',
+      },
+      {
+        amount: 100,
+        address: 'EQBpCjQrzr2SDPvOxFmqxibc2BlXD_bt4siGCKM6Qyhpd3OP',
+        currency: 'TON',
+      },
+      {
+        amount: 3000.045,
+        address: 'EQBpCjQrzr2SDPvOxFmqxibc2BlXD_bt4siGCKM6Qyhpd3OP',
+        currency: 'TON',
+      },
+    ],
+    HttpStatusCodes.OK);
 });
 
 export default app;

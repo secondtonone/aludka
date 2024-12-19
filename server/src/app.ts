@@ -1,8 +1,10 @@
 import { Hono } from 'hono';
 import { openAPISpecs } from 'hono-openapi';
 import { cors } from 'hono/cors';
-import { logger } from 'hono/logger';
+import notFound from 'stoker/middlewares/not-found';
+import onError from 'stoker/middlewares/on-error';
 
+import pinoLogger from './plugins/pino-logger';
 import scalar from './plugins/scalar';
 import routes from './routes';
 
@@ -22,15 +24,18 @@ const getLoggerConfig = () => {
 const app = new Hono();
 
 if (getLoggerConfig()) {
-  app.use(logger());
+  app.use(pinoLogger());
 }
 
 if (process.env.NODE_ENV === 'production') {
-  app.use('/*', cors({
-    origin: process.env.WEB_APP || '*',
-    credentials: true,
-    allowMethods: ['GET', 'PUT', 'OPTIONS', 'POST', 'DELETE'],
-  }));
+  app.use(
+    '/*',
+    cors({
+      origin: process.env.WEB_APP || '*',
+      credentials: true,
+      allowMethods: ['GET', 'PUT', 'OPTIONS', 'POST', 'DELETE'],
+    })
+  );
 }
 
 app
@@ -57,5 +62,8 @@ if (process.env.NODE_ENV === 'development') {
     )
     .get('/reference', scalar(docPath));
 }
+
+app.onError(onError);
+app.notFound(notFound);
 
 export default app;

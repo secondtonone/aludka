@@ -3,18 +3,18 @@ import { extendZodWithOpenApi } from 'zod-openapi';
 
 extendZodWithOpenApi(z);
 
-export const WinnerSchema = z
+export const WinnerSchema =z.array(z
   .object({
-    id: z.string().openapi({
-      example: '123',
+    amount: z.number().openapi({
+      example: 300,
     }),
-    name: z.string().openapi({
-      example: 'John Doe',
+    address: z.string().openapi({
+      example: 'QR7867fdfmdfkdmgkmgmfFFf67Ff67FFHFJFbbybdd',
     }),
-    age: z.number().openapi({
-      example: 42,
+    currency: z.string().openapi({
+      example: 'TON',
     }),
-  });
+  }));
 
 export const ErrorSchema = z.object({
   code: z.number().openapi({

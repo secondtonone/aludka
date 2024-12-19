@@ -10,6 +10,7 @@ const scalar  = (url: string) => apiReference({
       targetKey: 'javascript',
       clientKey: 'axios'
     },
+    layout: "classic",
   });
 
 export default scalar;
