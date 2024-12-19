@@ -2,7 +2,7 @@
   "name": "server",
   "version": "0.0.2",
   "description": "Server for app",
-  "type": "module",
+  "type": "commonjs",
   "scripts": {
     "build": "tsc",
     "start": "node --trace-deprecation --env-file=../.env dist/server.js",
