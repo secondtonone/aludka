@@ -1,4 +1,4 @@
-/* import { useNavigate } from 'react-router';
+/* import { useNavigate } from 'react-router-dom';
 import { backButton } from '@telegram-apps/sdk-react'; */
 import { Header } from '@/shared';
 import { PropsWithChildren /* useEffect */ } from 'react';

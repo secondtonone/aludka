@@ -6,7 +6,7 @@ import { BackIcon } from '@/shared';
 import { WinnersList } from '@/features';
 import { Button } from '@telegram-apps/telegram-ui';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 
 const content = [
   {

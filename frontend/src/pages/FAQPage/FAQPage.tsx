@@ -4,7 +4,7 @@ import { Page } from '@/app/layouts/Page';
 import { Accordion, BackIcon } from '@/shared';
 
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 
 
 const content = [

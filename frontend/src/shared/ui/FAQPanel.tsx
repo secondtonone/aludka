@@ -2,7 +2,7 @@ import { type FC } from 'react';
 
 import { HelpIcon } from '@/shared';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 export const FAQPanel: FC = () => {
   const { t } = useTranslation();

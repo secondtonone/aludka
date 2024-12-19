@@ -2,7 +2,7 @@ import { ChevronIcon, getPlural } from '@/shared';
 import { type FC } from 'react';
 
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 interface LotteryCardProps {
   footer?: React.ReactNode

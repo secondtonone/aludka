@@ -1,6 +1,6 @@
 import { classNames, openLink } from '@telegram-apps/sdk-react';
 import { useCallback, type FC, type MouseEventHandler } from 'react';
-import { Link as RouterLink, type LinkProps } from 'react-router';
+import { Link as RouterLink, type LinkProps } from 'react-router-dom';
 
 import './Link.css';
 
