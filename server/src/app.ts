@@ -8,7 +8,7 @@ import pinoLogger from './plugins/pino-logger';
 import scalar from './plugins/scalar';
 import routes from './routes';
 
-import { version } from '../package.json';
+import { version } from '../package.json' with { type: 'json' };
 
 const getLoggerConfig = () => {
   switch (process.env.NODE_ENV) {
