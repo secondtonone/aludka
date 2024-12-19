@@ -8,8 +8,6 @@ import pinoLogger from './plugins/pino-logger';
 import scalar from './plugins/scalar';
 import routes from './routes';
 
-import { version } from '../package.json' with { type: 'json' };
-
 const getLoggerConfig = () => {
   switch (process.env.NODE_ENV) {
     case 'test':
@@ -54,7 +52,7 @@ if (process.env.NODE_ENV === 'development') {
         documentation: {
           info: {
             title: 'Ludka',
-            version,
+            version: '0.0.2',
             description: 'API for Ludka',
           },
         },
