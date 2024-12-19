@@ -3,8 +3,9 @@ import type { FC } from 'react';
 
 import './RGB.css';
 
-export type RGBProps = JSX.IntrinsicElements['div'] & {
+export type RGBProps = {
   color: RGBType;
+  className?: string;
 };
 
 export const RGB: FC<RGBProps> = ({ color, className, ...rest }) => (
