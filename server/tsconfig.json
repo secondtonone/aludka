@@ -5,8 +5,9 @@
     "outDir": "./dist",
     "baseUrl": ".",
     "resolveJsonModule": true,
-    "module": "ESNext",
-    "moduleResolution": "Node"
+    "target": "ES2022",
+    "module": "CommonJS",
+    "moduleResolution": "node"
   },
   "include": ["src/**/*.ts"],
   "exclude": ["dist"]

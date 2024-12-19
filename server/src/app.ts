@@ -1,11 +1,11 @@
 import { Hono } from 'hono';
-import { openAPISpecs } from 'hono-openapi';
+// import { openAPISpecs } from 'hono-openapi';
 import { cors } from 'hono/cors';
 /* import notFound from 'stoker/middlewares/not-found';
 import onError from 'stoker/middlewares/on-error'; */
 
 import pinoLogger from './plugins/pino-logger';
-import scalar from './plugins/scalar';
+// import scalar from './plugins/scalar';
 import routes from './routes';
 
 const getLoggerConfig = () => {
@@ -45,7 +45,7 @@ app
 
 app.route('/service', routes);
 
-if (process.env.NODE_ENV === 'development') {
+/* if (process.env.NODE_ENV === 'development') {
   const docPath = '/doc';
 
   app
@@ -62,7 +62,7 @@ if (process.env.NODE_ENV === 'development') {
       })
     )
     .get('/reference', scalar(docPath));
-}
+} */
 
 
 
