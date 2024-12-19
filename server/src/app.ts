@@ -21,6 +21,9 @@ const getLoggerConfig = () => {
 
 const app = new Hono();
 
+app.onError(onError);
+app.notFound(notFound);
+
 if (getLoggerConfig()) {
   app.use(pinoLogger());
 }
@@ -61,7 +64,6 @@ if (process.env.NODE_ENV === 'development') {
     .get('/reference', scalar(docPath));
 }
 
-app.onError(onError);
-app.notFound(notFound);
+
 
 export default app;
