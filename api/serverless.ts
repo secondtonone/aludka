@@ -1,4 +1,4 @@
 import { handle } from 'hono/vercel';
-import app from '../server/dist/app';
+import app from '../server/app';
 
 export default handle(app);
