@@ -19,9 +19,9 @@ export const IndexPage: FC = () => {
 
   const {
     data: contract = {
-      prizePercentage: 310,
+      prizePercentage: 0.005,
       round: 1,
-      commissionPercentage: 0.5,
+      commissionPercentage: 0.005,
       entryFee: 100,
       totalPlayers: 25,
       totalAmount: '1000.00',
