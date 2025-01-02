@@ -8,7 +8,9 @@
     "start": "node --trace-deprecation --env-file=../.env dist/server.js",
     "run": "pnpm build && pnpm start",
     "type-check": "tsc --noEmit",
-    "dev": "tsx watch --env-file=../.env ./src/server.ts"
+    "dev": "tsx watch --env-file=../.env ./src/server.ts",
+    "scripts:transactions": "tsx --env-file=../.env ./src/scripts/transactionsToDb.ts",
+    "scripts:info": "tsx --env-file=../.env ./src/scripts/contractInfoToDb.ts"
   },
   "keywords": [],
   "author": "",

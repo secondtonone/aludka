@@ -3,38 +3,24 @@ import { type FC } from 'react';
 import { Page } from '@/app/layouts/Page';
 import { BackIcon } from '@/shared';
 
+import config from '@/config';
+import { useWinners } from '@/enteties/winners';
 import { WinnersList } from '@/features';
 import { Button } from '@telegram-apps/telegram-ui';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
-const content = [
-  {
-    amount: 3,
-    address: 'EQBpCjQrzr2SDPvOxFmqxibc2BlXD_bt4siGCKM6Qyhpd3OP',
-    currency: 'TON',
-  },
-  {
-    amount: 2000,
-    address: 'EQBpCjQrzr2SDPvOxFmqxibc2BlXD_bt4siGCKM6Qyhpd3OP',
-    currency: 'TON',
-  },
-  {
-    amount: 100,
-    address: 'EQBpCjQrzr2SDPvOxFmqxibc2BlXD_bt4siGCKM6Qyhpd3OP',
-    currency: 'TON',
-  },
-  {
-    amount: 3000.045,
-    address: 'EQBpCjQrzr2SDPvOxFmqxibc2BlXD_bt4siGCKM6Qyhpd3OP',
-    currency: 'TON',
-  },
-];
+const providers = {
+  'tonviewer': 'tonviewer.com/transaction/',
+  'tonscan': 'tonscan.org/ru/tx/'
+} as const;
 
 export const WinnerPage: FC = () => {
   const navigate = useNavigate();
 
   const t = useTranslation().t;
+
+  const { data: winners = [] } = useWinners();
 
   return (
     <Page hideHeader>
@@ -52,8 +38,8 @@ export const WinnerPage: FC = () => {
       </div>
 
       <WinnersList
-        content={content}
-        linkProvider={(address) => `https://tonscan.org/ru/address/${address}`}
+        content={winners}
+        linkProvider={(address) => `https://${config.isTestnet ? 'testnet.' : ''}${providers.tonviewer}${address}`}
         onErrorComponent={() => (
           <Button
             onClick={() => window.location.reload()}

@@ -7,12 +7,16 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 // https://vitejs.dev/config/
 
 export default defineConfig(({ mode }) => {
-  const env = loadEnv(mode, './', '');
+  const env = loadEnv(mode, '../', '');
 
   return {
     define: {
       'process.env.TON_API_CLIENT_KEY': `'${env.TON_API_CLIENT_KEY}'`,
       'process.env.TON_CENTER_API_CLIENT_KEY': `'${env.TON_CENTER_API_CLIENT_KEY}'`,
+      'process.env.API_URL': `'${env.API_URL}'`,
+      'process.env.WEB_APP': `'${env.WEB_APP}'`,
+      'process.env.CONTRACT_ADDRESS': `'${env.CONTRACT_ADDRESS}'`,
+      'process.env.IS_TESTNET': env.IS_TESTNET,
     },
     /* base: '/reactjs-template', */
     plugins: [

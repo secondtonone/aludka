@@ -1,11 +1,12 @@
 import type { FastifyInstance } from 'fastify';
 import type { FastifyPluginAsyncZod } from 'fastify-type-provider-zod';
 import { z } from 'zod';
-import { winnerSchema, WinnerSchema } from './schema';
+import { getWinners as getDBWinners } from '../../../modules/winners';
+import { winnersSchema, WinnersSchema } from '../../../schemas/winners';
 
 const getWinners: FastifyPluginAsyncZod = async (fastify: FastifyInstance) => {
   fastify.get<{
-    Reply: { data: WinnerSchema };
+    Reply: { data: WinnersSchema };
   }>(
     '/get-winners',
     {
@@ -14,33 +15,21 @@ const getWinners: FastifyPluginAsyncZod = async (fastify: FastifyInstance) => {
         tags: ['winners'],
         summary: 'Get winners',
         response: {
-          201: z.object({ data: winnerSchema}).describe('Successful response'),
+          201: z.object({ data: winnersSchema}).describe('Successful response'),
         },
       },
     },
     async (request, reply) => {
-      reply.code(201).send({ data: [
-        {
-          amount: 3,
-          address: 'EQBpCjQrzr2SDPvOxFmqxibc2BlXD_bt4siGCKM6Qyhpd3OP',
-          currency: 'TON',
-        },
-        {
-          amount: 2000,
-          address: 'EQBpCjQrzr2SDPvOxFmqxibc2BlXD_bt4siGCKM6Qyhpd3OP',
-          currency: 'TON',
-        },
-        {
-          amount: 100,
-          address: 'EQBpCjQrzr2SDPvOxFmqxibc2BlXD_bt4siGCKM6Qyhpd3OP',
-          currency: 'TON',
-        },
-        {
-          amount: 3000.045,
-          address: 'EQBpCjQrzr2SDPvOxFmqxibc2BlXD_bt4siGCKM6Qyhpd3OP',
-          currency: 'TON',
-        },
-      ] });
+      const winners = await getDBWinners({ mongoClient: fastify.mongoClient });
+
+      console.log('winners: ', winners);
+
+      const data = winners?.map(({_id, ...data}) => ({
+        id: _id.toString(),
+        ...data
+      })) || [];
+
+      reply.code(201).send({ data });
     }
   );
 };

@@ -136,3 +136,4 @@ ngrok.yml
 **/.DS_Store
 .vercel
 .cursorignore
+*.txt

@@ -2,7 +2,6 @@ import type { ComponentType, JSX } from 'react';
 
 import { FAQPage } from '@/pages/FAQPage/FAQPage';
 import { IndexPage } from '@/pages/IndexPage/IndexPage';
-import { TONConnectPage } from '@/pages/TONConnectPage/TONConnectPage';
 import { WinnerPage } from '@/pages/WinnerPage/WinnerPage';
 
 interface Route {
@@ -15,10 +14,5 @@ interface Route {
 export const routes: Route[] = [
   { path: '/', title: 'Алексей Лудка', Component: IndexPage },
   { path: '/winners', title: 'Алексей Лудка | Победители', Component: WinnerPage },
-  { path: '/faq', title: 'Алексей Лудка | FAQ', Component: FAQPage },
-  {
-    path: '/ton',
-    Component: TONConnectPage,
-    title: 'Алексей Лудка | Buy',
-  },
+  { path: '/faq', title: 'Алексей Лудка | FAQ', Component: FAQPage }
 ];

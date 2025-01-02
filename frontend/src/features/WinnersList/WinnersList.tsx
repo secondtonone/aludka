@@ -3,16 +3,13 @@ import { type FC } from 'react';
 import { Cell, FixedLayout, Placeholder, Skeleton, List as TgList } from '@telegram-apps/telegram-ui';
 import { useTranslation } from 'react-i18next';
 
+import type { WinnerProps } from '@/enteties/winners';
 import { ChevronIcon, formatCurrency } from '@/shared';
 import { maskStringV2 } from 'maskdata';
 import s from './WinnersList.module.css';
 
 interface WinnersListProps {
-  content: {
-    amount: number,
-    address: string,
-    currency: string
-  }[]
+  content: WinnerProps[]
   isError?: boolean
   isLoading?: boolean
   onErrorComponent?: () => React.ReactNode
@@ -90,8 +87,8 @@ export const WinnersList: FC<WinnersListProps> = ({ content, isError, isLoading,
 
   return (
     <TgList>
-      {content.map(({ amount, address, currency }) => (
-        <a href={linkProvider(address)} target="_blank" rel="noopener" key={address + amount}>
+      {content.map(({ amount, address, currency, id }) => (
+        <a href={linkProvider(address)} target="_blank" rel="noopener" key={id}>
           <Cell
             className={`${s.list} bg-white dark:bg-black rounded-xl shadow border border-whity relative !px-4 !mb-[10px]`}
             after={<div className="relative -top-[12px] text-gray_dark dark:text-gray_light text-sm flex flex-col items-end"> <ChevronIcon className="scale-1" /></div>}
