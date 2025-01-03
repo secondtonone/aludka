@@ -1,9 +1,11 @@
-import { TonApiClient } from '@ton-api/client';
+import { TonClient } from '@ton/ton';
 
-// Initialize the TonApi
-const ta = new TonApiClient({
-  baseUrl: 'https://tonapi.io',
-  apiKey: process.env.TON_API_CLIENT_KEY || '',
-});
+const tonClient = (apiKey: string, isTestnet = false) =>
+  new TonClient({
+    endpoint: isTestnet
+      ? 'https://testnet.toncenter.com/api/v2/jsonRPC'
+      : 'https://toncenter.com/api/v2/jsonRPC',
+    apiKey,
+  });
 
-export default ta;
+export default tonClient;
