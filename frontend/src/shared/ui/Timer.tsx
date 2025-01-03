@@ -6,22 +6,13 @@ export const Timer: FC<{ timestamp: number }> = ({ timestamp }) => {
   const [timeLeft, setTimeLeft] = useState('');
 
   const calculateTimeLeft = () => {
-    const now = Date.now();
-    const timeDifference = timestamp - now;
-
-    if (timeDifference > 0)
-    {
-      const hours = Math.floor(timeDifference / (1000 * 60 * 60));
-      const minutes = Math.floor(
-        (timeDifference % (1000 * 60 * 60)) / (1000 * 60)
-      );
-      setTimeLeft(
-        `${hours} ${getPlural(hours, ['час', 'часа', 'часов'])} ${minutes} ${getPlural(minutes, ['минута', 'минуты', 'минут'])}`
-      );
-    } else
-    {
-      setTimeLeft('Время вышло');
-    }
+    const hours = Math.floor(timestamp / (1000 * 60 * 60));
+    const minutes = Math.floor(
+      (timestamp % (1000 * 60 * 60)) / (1000 * 60)
+    );
+    setTimeLeft(
+      `${hours} ${getPlural(hours, ['час', 'часа', 'часов'])} ${minutes} ${getPlural(minutes, ['минута', 'минуты', 'минут'])}`
+    );
   };
 
   useEffect(() => {

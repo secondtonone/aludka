@@ -1,4 +1,4 @@
-import { MongoClient } from 'mongodb';
+import type { MongoClient } from 'mongodb';
 import type { ContractData, ContractSchema } from '../schemas/contract';
 
 export async function getContracts({

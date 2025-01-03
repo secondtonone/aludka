@@ -20,14 +20,22 @@ const getWinners: FastifyPluginAsyncZod = async (fastify: FastifyInstance) => {
       },
     },
     async (request, reply) => {
-      const winners = await getDBWinners({ mongoClient: fastify.mongoClient });
+      let data = [] as WinnersSchema;
 
-      console.log('winners: ', winners);
+      try {
+        const winners = await getDBWinners({ mongoClient: fastify.mongoClient });
 
-      const data = winners?.map(({_id, ...data}) => ({
-        id: _id.toString(),
-        ...data
-      })) || [];
+        console.log('winners: ', winners);
+
+        if (winners) {
+          data = winners?.map(({_id, ...data}) => ({
+            id: _id.toString(),
+            ...data
+          })) || [];
+        }
+      } catch (error) {
+        console.log(error);
+      }
 
       reply.code(201).send({ data });
     }

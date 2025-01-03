@@ -20,14 +20,21 @@ const getContract: FastifyPluginAsyncZod = async (fastify: FastifyInstance) => {
       },
     },
     async (request, reply) => {
-      const contracts = await getContracts({ mongoClient:fastify.mongoClient });
+      let data = {} as ContractSchema;
 
-      console.log('contracts: ',contracts);
+      try {
+        const contracts = await getContracts({ mongoClient:fastify.mongoClient });
 
-      const data = contracts?.map(({_id, ...data}) => ({
-        id: _id.toString(),
-        ...data
-      }))[0] || {} as ContractSchema;
+        if (contracts) {
+          data = contracts?.map(({_id, ...data}) => ({
+            id: _id.toString(),
+            ...data
+          }))[0] || {} as ContractSchema;
+        }
+
+      } catch (error) {
+        console.log(error);
+      }
 
       reply.code(201).send({ data });
     }
