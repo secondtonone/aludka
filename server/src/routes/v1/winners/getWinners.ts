@@ -1,8 +1,7 @@
+import { getWinners as getDBWinners, winnersSchema, WinnersSchema } from 'db';
 import type { FastifyInstance } from 'fastify';
 import type { FastifyPluginAsyncZod } from 'fastify-type-provider-zod';
 import { z } from 'zod';
-import { getWinners as getDBWinners } from '../../../modules/winners';
-import { winnersSchema, WinnersSchema } from '../../../schemas/winners';
 
 const getWinners: FastifyPluginAsyncZod = async (fastify: FastifyInstance) => {
   fastify.get<{

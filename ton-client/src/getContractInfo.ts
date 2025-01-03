@@ -1,6 +1,6 @@
 import { Address, fromNano } from '@ton/core';
 import { TonClient } from '@ton/ton';
-import { ContractData } from 'src/schemas/contract';
+import type { ContractData } from 'db';
 import { getContractBalance } from './getContractBalance';
 import { contractMethods } from './lib/contractMethods';
 import { executeMethod } from './lib/executeMethod';

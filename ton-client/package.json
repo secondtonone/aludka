@@ -1,0 +1,19 @@
+{
+  "name": "ton-client",
+  "version": "0.3.4",
+  "description": "Ton Client for app",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "type-check": "tsc --noEmit",
+    "prepare": "npm run build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "db": "workspace:*",
+    "ton-client": "workspace:*"
+  },
+  "devDependencies": {}
+}

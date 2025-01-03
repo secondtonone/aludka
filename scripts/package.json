@@ -1,0 +1,24 @@
+{
+  "name": "scripts",
+  "version": "0.3.0",
+  "description": "Scripts for app",
+  "scripts": {
+    "build": "tsc",
+    "type-check": "tsc --noEmit",
+    "scripts:transactions": "tsx --env-file=../.env ./src/transactionsToDb.ts",
+    "scripts:info": "tsx --env-file=../.env ./src/contractInfoToDb.ts",
+    "trigger:dev": "pnpm dlx trigger.dev@latest dev",
+    "trigger:deploy": "pnpm dlx trigger.dev@latest deploy"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@trigger.dev/sdk": "^3.3.7",
+    "db": "workspace:*",
+    "ton-client": "workspace:*"
+  },
+  "devDependencies": {
+    "@trigger.dev/build": "^3.3.7"
+  }
+}

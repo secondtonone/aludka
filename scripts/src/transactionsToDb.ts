@@ -1,15 +1,21 @@
-import { connectToCluster } from '../db/connectToCluster';
-import { getWinners as getDBWinners, insertWinners } from '../modules/winners';
-import client from '../ton/client';
-import { getTransactions } from '../ton/getTransactions';
-import { getWinners } from '../ton/lib/getWinners';
+import {
+  connectToCluster,
+  getWinners as getDBWinners,
+  insertWinners
+} from 'db';
+
+import {
+  getTransactions,
+  getWinners,
+  tonClient
+} from 'ton-client';
 
 const tonCenterApi = process.env.TON_CENTER_API_CLIENT_KEY || '';
 const contractId = process.env.CONTRACT_ADDRESS || '';
 const isTestnet = process.env.IS_TESTNET === 'true';
 const mongoUri = process.env.DATABASE_URL || '';
 
-const tonClient = client(tonCenterApi, isTestnet);
+const client = tonClient(tonCenterApi, isTestnet);
 
 const main = async () => {
   const mongoClient = await connectToCluster(mongoUri);
@@ -18,7 +24,7 @@ const main = async () => {
 
   const lastWinner = prevWinners && prevWinners[0] ? prevWinners[0] : null;
 
-  const transactions = await getTransactions(tonClient, contractId, lastWinner ? {
+  const transactions = await getTransactions(client, contractId, lastWinner ? {
     to_lt: lastWinner.lt
   } : undefined);
 

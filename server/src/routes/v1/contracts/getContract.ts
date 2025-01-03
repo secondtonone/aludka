@@ -1,8 +1,7 @@
+import { contractSchema, ContractSchema, getContracts } from 'db';
 import type { FastifyInstance } from 'fastify';
 import type { FastifyPluginAsyncZod } from 'fastify-type-provider-zod';
 import { z } from 'zod';
-import { getContracts } from '../../../modules/contracts';
-import { contractSchema, ContractSchema } from '../../../schemas/contract';
 
 const getContract: FastifyPluginAsyncZod = async (fastify: FastifyInstance) => {
   fastify.get<{

@@ -1,10 +1,10 @@
 import cors from '@fastify/cors';
+import { connectToCluster } from 'db';
 import fastify from 'fastify';
 import {
   serializerCompiler,
   validatorCompiler,
 } from 'fastify-type-provider-zod';
-import { connectToCluster } from './db/connectToCluster';
 import { v1 } from './routes';
 
 const mongoUri = process.env.DATABASE_URL || '';

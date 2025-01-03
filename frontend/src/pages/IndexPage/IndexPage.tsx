@@ -17,18 +17,23 @@ export const IndexPage: FC = () => {
 
   const timestamp = timeUntilUTC(0);
 
+
   const {
     data: contract = {
-      prizePercentage: 0.005,
+      prizePercentage: '0.005',
       round: 1,
-      commissionPercentage: 0.005,
-      entryFee: 100,
+      commissionPercentage: '0.005',
+      entryFee: '0.5',
       totalPlayers: 25,
       totalAmount: '1000.00',
       balance: '0'
     },
     isLoading
   } = useContract();
+
+  const totalPrice = parseFloat(contract.entryFee) + 0.003;
+
+  console.log(totalPrice);
 
   return (
     <Page>
@@ -57,15 +62,23 @@ export const IndexPage: FC = () => {
               openTonConnectModal();
             } else
             {
-              await makeTransaction(
-                {
-                  params: {
-                    price: contract.entryFee,
-                    comment: 'join',
-                  },
-                  provider: tonConnectUI,
-                }
-              );
+              try
+              {
+                await makeTransaction(
+                  {
+                    params: {
+                      price: totalPrice,
+                      comment: 'join',
+                    },
+                    provider: tonConnectUI,
+                  }
+                );
+
+                console.log('Вы учавствуете в розыгрыше');
+              } catch (error)
+              {
+                console.log(error);
+              }
             }
           }}
           size="l"
