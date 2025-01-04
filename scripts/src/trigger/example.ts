@@ -13,7 +13,7 @@ export const contractInfoTask = schedules.task({
 
     logger.log('Contract info task', { payload, distanceInMs });
 
-    const variables = await envvars.list();
+    const variables = await envvars.list('proj_ynxnxdulpxanfbtmoqad', 'prod');
 
     for (const variable of variables) {
       logger.log(`Name: ${variable.name}, Value: ${variable.value}`);
