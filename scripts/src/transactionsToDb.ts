@@ -10,14 +10,13 @@ import {
   tonClient
 } from 'ton-client';
 
-const tonCenterApi = process.env.TON_CENTER_API_CLIENT_KEY || '';
-const contractId = process.env.CONTRACT_ADDRESS || '';
-const isTestnet = process.env.IS_TESTNET === 'true';
-const mongoUri = process.env.DATABASE_URL || '';
+export const transactionsToDb = async (env: Record<string, string>) => {
+  const tonCenterApi = env.TON_CENTER_API_CLIENT_KEY || '';
+  const contractId = env.CONTRACT_ADDRESS || '';
+  const isTestnet = env.IS_TESTNET === 'true';
+  const mongoUri = env.DATABASE_URL || '';
 
-const client = tonClient(tonCenterApi, isTestnet);
-
-const main = async () => {
+  const client = tonClient(tonCenterApi, isTestnet);
   const mongoClient = await connectToCluster(mongoUri);
 
   const prevWinners = await getDBWinners({ mongoClient, limit: 1 });
@@ -39,5 +38,3 @@ const main = async () => {
 
   await mongoClient?.close();
 }
-
-main();

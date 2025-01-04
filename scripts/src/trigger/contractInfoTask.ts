@@ -1,11 +1,10 @@
 import { envvars, logger, schedules } from '@trigger.dev/sdk/v3';
+import { contractInfoToDb } from '../contractInfoToDb';
 
 export const contractInfoTask = schedules.task({
   id: 'contract-info-task',
-  // Every hour
   cron: '* * * * *',
-  // Set an optional maxDuration to prevent tasks from running indefinitely
-  maxDuration: 300, // Stop executing after 300 secs (5 mins) of compute
+  maxDuration: 300,
   run: async (payload, { ctx }) => {
     const distanceInMs =
       payload.timestamp.getTime() -
@@ -13,11 +12,11 @@ export const contractInfoTask = schedules.task({
 
     logger.log('Contract info task', { payload, distanceInMs });
 
-    const variables = await envvars.list('proj_ynxnxdulpxanfbtmoqad', 'prod');
+    const variables = await envvars.list(ctx.project.ref, ctx.environment.slug);
 
-    for (const variable of variables) {
-      logger.log(`Name: ${variable.name}, Value: ${variable.value}`);
-    }
+    const env = variables.reduce((acc, variable) => ({ ...acc, [variable.name]: variable.value }), {} as Record<string, string>);
+
+    await contractInfoToDb(env);
 
     logger.log('Done.');
   },
