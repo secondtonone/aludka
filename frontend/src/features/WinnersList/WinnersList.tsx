@@ -3,7 +3,7 @@ import { type FC } from 'react';
 import { Cell, FixedLayout, Placeholder, Skeleton, List as TgList } from '@telegram-apps/telegram-ui';
 import { useTranslation } from 'react-i18next';
 
-import type { WinnerProps } from '@/enteties/winners';
+import type { WinnerProps } from '@/entities/winners';
 import { ChevronIcon, formatCurrency } from '@/shared';
 import { maskStringV2 } from 'maskdata';
 import s from './WinnersList.module.css';

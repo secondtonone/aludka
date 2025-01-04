@@ -24,8 +24,8 @@ export async function getContractInfo(
       ...info,
       round: (round as number) + 1,
       entryFee: fromNano(entryFee),
-      commissionPercentage: commissionPercentage as string,
-      prizePercentage: prizePercentage as string,
+      commissionPercentage: commissionPercentage.toString(),
+      prizePercentage: prizePercentage.toString(),
       balance: fromNano(balance)
     };
   } catch (error) {

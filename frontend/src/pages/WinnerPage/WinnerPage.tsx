@@ -4,7 +4,7 @@ import { Page } from '@/app/layouts/Page';
 import { BackIcon } from '@/shared';
 
 import config from '@/config';
-import { useWinners } from '@/enteties/winners';
+import { useWinners } from '@/entities/winners';
 import { WinnersList } from '@/features';
 import { Button } from '@telegram-apps/telegram-ui';
 import { useTranslation } from 'react-i18next';
@@ -20,7 +20,7 @@ export const WinnerPage: FC = () => {
 
   const t = useTranslation().t;
 
-  const { data: winners = [] } = useWinners();
+  const { data: winners = [], isLoading } = useWinners();
 
   return (
     <Page hideHeader>
@@ -38,6 +38,7 @@ export const WinnerPage: FC = () => {
       </div>
 
       <WinnersList
+        isLoading={isLoading}
         content={winners}
         linkProvider={(address) => `https://${config.isTestnet ? 'testnet.' : ''}${providers.tonviewer}${address}`}
         onErrorComponent={() => (

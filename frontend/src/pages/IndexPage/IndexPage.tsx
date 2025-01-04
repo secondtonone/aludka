@@ -1,7 +1,7 @@
 import { type FC } from 'react';
 
 import { Page } from '@/app/layouts';
-import { useContract } from '@/enteties/contracts';
+import { useContract } from '@/entities/contracts';
 import { LotteryCard } from '@/features';
 import { FAQPanel, makeTransaction, timeUntilUTC } from '@/shared';
 import { Timer } from '@/shared/ui/Timer';
@@ -20,13 +20,13 @@ export const IndexPage: FC = () => {
 
   const {
     data: contract = {
-      prizePercentage: '0.005',
+      prizePercentage: '50000',
       round: 1,
-      commissionPercentage: '0.005',
-      entryFee: '0.5',
-      totalPlayers: 25,
-      totalAmount: '1000.00',
-      balance: '0'
+      commissionPercentage: '50000',
+      entryFee: '0.503',
+      totalPlayers: 1,
+      totalAmount: '1.45',
+      balance: '1.45'
     },
     isLoading
   } = useContract();
