@@ -1,4 +1,4 @@
-import { logger, schedules, wait } from '@trigger.dev/sdk/v3';
+import { envvars, logger, schedules } from '@trigger.dev/sdk/v3';
 
 export const contractInfoTask = schedules.task({
   id: 'contract-info-task',
@@ -13,13 +13,11 @@ export const contractInfoTask = schedules.task({
 
     logger.log('Contract info task', { payload, distanceInMs });
 
-    // Wait for 5 seconds
-    await wait.for({ seconds: 5 });
+    const variables = await envvars.list();
 
-    // Format the timestamp using the timezone from the payload
-    const formatted = payload.timestamp.toLocaleString('en-US', {
-      timeZone: payload.timezone,
-    });
+    for (const variable of variables) {
+      logger.log(`Name: ${variable.name}, Value: ${variable.value}`);
+    }
 
     logger.log('Done.');
   },
