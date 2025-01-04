@@ -32,8 +32,7 @@ export const IndexPage: FC = () => {
   } = useContract();
 
   const totalPrice = parseFloat(contract.entryFee) + 0.003;
-
-  console.log(totalPrice);
+  const price = parseFloat(contract.balance) * parseInt(contract.prizePercentage) / 100000;
 
   return (
     <Page>
@@ -41,7 +40,7 @@ export const IndexPage: FC = () => {
         total={parseFloat(contract.balance)}
         currency="TON"
         priced={parseFloat(contract.totalAmount)}
-        price={25}
+        price={price}
         round={contract.round}
         totalPlayers={contract.totalPlayers}
         footer={<FAQPanel />}
