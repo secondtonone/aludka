@@ -2,7 +2,7 @@ import { useRive, useStateMachineInput } from '@rive-app/react-canvas';
 import { useState, type FC } from 'react';
 
 import { Page } from '@/app/layouts';
-import { useContract } from '@/entities/contracts';
+import { updateContract, useContract } from '@/entities/contracts';
 import { LotteryCard } from '@/features';
 import { FAQPanel, makeTransaction, timeUntilUTC } from '@/shared';
 import { Timer } from '@/shared/ui/Timer';
@@ -39,6 +39,7 @@ export const IndexPage: FC = () => {
 
   const {
     data: contract = {
+      id: '',
       prizePercentage: '50000',
       round: 1,
       commissionPercentage: '50000',
@@ -69,6 +70,11 @@ export const IndexPage: FC = () => {
 
         setSnackbarShown(true);
         startAnimation?.fire();
+
+        updateContract({
+          totalPlayers: contract.totalPlayers + 1,
+          balance: (parseFloat(contract.balance) + totalPrice).toString(),
+        });
       } catch (error)
       {
         setSnackbarRejectedShown(true);
