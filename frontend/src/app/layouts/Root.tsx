@@ -25,6 +25,7 @@ function ErrorBoundaryError({ error }: { error: unknown }) {
 export function Root() {
   const { i18n: { language } } = useTranslation();
   const lang = language.split('-')[0] as Locales;
+
   return (
     <ErrorBoundary fallback={ErrorBoundaryError}>
       <TonConnectUIProvider manifestUrl={publicUrl('tonconnect-manifest.json')} language={lang}>

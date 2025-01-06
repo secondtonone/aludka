@@ -14,5 +14,18 @@
   "Total in the pool": "Всего в пуле",
   "Prizes sent to winners": "Отправленные призы победителям",
   "Be the first winner!": "Будьте первым!",
-  "There are no winners yet": "Здесь пока нет победителей"
+  "There are no winners yet": "Здесь пока нет победителей",
+  "drawn": "разыграно",
+  "The winner will receive": "Получит победитель",
+  "round": "раунд",
+  "participant": "участник",
+  "participants-2": "участника",
+  "participants": "участников",
+  "Until the end of the round": "До конца раунда",
+  "hour": "час",
+  "hours": "часов",
+  "hours-2": "часа",
+  "minute": "минута",
+  "minutes": "минут",
+  "minutes-2": "минуты"
 }

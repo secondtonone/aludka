@@ -1,5 +1,6 @@
 import { FC, useEffect, useState } from 'react';
 
+import { useTranslation } from 'react-i18next';
 import { getPlural } from '../lib';
 
 interface TimerProps {
@@ -10,6 +11,7 @@ interface TimerProps {
 export const Timer: FC<TimerProps> = ({ timestamp, onRestart }) => {
   const [timeLeft, setTimeLeft] = useState('');
   const [time, setTime] = useState(timestamp);
+  const { t } = useTranslation();
 
   useEffect(() => {
     let timer: NodeJS.Timeout;
@@ -18,18 +20,19 @@ export const Timer: FC<TimerProps> = ({ timestamp, onRestart }) => {
       const hours = Math.floor(time / (1000 * 60 * 60));
       const minutes = Math.floor((time % (1000 * 60 * 60)) / (1000 * 60));
       setTimeLeft(
-        `${hours} ${getPlural(hours, ['час', 'часа', 'часов'])} ${minutes} ${getPlural(minutes, ['минута', 'минуты', 'минут'])}`
+        `${hours} ${getPlural(hours, [t('hour'), t('hours-2'), t('hours')])} ${minutes} ${getPlural(minutes, [t('minute'), t('minutes-2'), t('minutes')])}`
       );
 
       timer = setInterval(
-        () => setTime((currentTime) => {
-          const newTime = currentTime - 1000;
-          if (newTime <= 0)
-          {
-            return onRestart();
-          }
-          return newTime;
-        }),
+        () =>
+          setTime((currentTime) => {
+            const newTime = currentTime - 1000;
+            if (newTime <= 0)
+            {
+              return onRestart();
+            }
+            return newTime;
+          }),
         1000
       );
     };
@@ -45,7 +48,7 @@ export const Timer: FC<TimerProps> = ({ timestamp, onRestart }) => {
         {timeLeft}
       </div>
       <div className="text-center text-[#646368] dark:text-whity text-xs font-normal font-['Inter'] leading-none">
-        До конца раунда
+        {t('Until the end of the round')}
       </div>
     </div>
   );

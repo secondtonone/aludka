@@ -60,7 +60,7 @@ export const LotteryCard: FC<LotteryCardProps> = ({
           to="/winners"
           className="text-[#f2e8fc] text-xs font-semibold leading-none text-left w-full flex flex-row items-center">
           <span>
-            {priced} {currency} разыграно
+            {priced} {currency} {t('drawn')}
           </span>{' '}
           <ChevronIcon />
         </Link>
@@ -82,7 +82,7 @@ export const LotteryCard: FC<LotteryCardProps> = ({
             )}
 
             <div className="text-center text-[#646368] text-xs font-normal leading-tight">
-              Получит победитель
+              {t('The winner will receive')}
             </div>
           </div>
 
@@ -108,9 +108,9 @@ export const LotteryCard: FC<LotteryCardProps> = ({
                 </span>{' '}
                 <span className="text-center text-[#aaaaaa] text-xs font-normal leading-none">
                   {getPlural(totalPlayers, [
-                    'участник',
-                    'участника',
-                    'участников',
+                    t('participant'),
+                    t('participants-2'),
+                    t('participants'),
                   ])}
                 </span>
               </>
@@ -131,7 +131,7 @@ export const LotteryCard: FC<LotteryCardProps> = ({
                   {round}
                 </span>{' '}
                 <span className="text-center text-[#aaaaaa] text-xs font-normal leading-none">
-                  раунд
+                  {t('round')}
                 </span>
               </>
             )}
