@@ -1,8 +1,9 @@
 import {
   connectToCluster,
+  type ContractData,
   getContract,
   insertContracts,
-  replaceContract,
+  replaceContract
 } from 'db';
 import {
   getContractInfo,
@@ -44,10 +45,16 @@ export const contractInfoToDb = async (env: Record<string, string>) => {
   });
 
   if (contract) {
-    await replaceContract({
-      mongoClient,
-      params: contractData,
-    });
+    if (
+      !(Object.keys(contractData) as Array<keyof ContractData>).every(
+        (key) => contract[key] == contractData[key]
+      )
+    ) {
+      await replaceContract({
+        mongoClient,
+        params: contractData,
+      });
+    }
   } else {
     await insertContracts({
       mongoClient,

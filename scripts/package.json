@@ -1,12 +1,12 @@
 {
   "name": "scripts",
-  "version": "0.3.0",
+  "version": "0.3.3",
   "description": "Scripts for app",
   "scripts": {
     "build": "tsc",
     "type-check": "tsc --noEmit",
-    "scripts:transactions": "tsx --env-file=../.env ./src/transactionsToDb.ts",
-    "scripts:info": "tsx --env-file=../.env ./src/contractInfoToDb.ts",
+    "scripts:transactions": "tsx --env-file=../.env ./transactions.ts",
+    "scripts:info": "tsx --env-file=../.env ./contractInfo.ts",
     "trigger:dev": "pnpm dlx trigger.dev@latest dev",
     "trigger:deploy": "pnpm dlx trigger.dev@latest deploy"
   },

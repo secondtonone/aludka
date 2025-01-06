@@ -2,24 +2,42 @@ import { FC, useEffect, useState } from 'react';
 
 import { getPlural } from '../lib';
 
-export const Timer: FC<{ timestamp: number }> = ({ timestamp }) => {
-  const [timeLeft, setTimeLeft] = useState('');
+interface TimerProps {
+  timestamp: number;
+  onRestart: () => number;
+}
 
-  const calculateTimeLeft = () => {
-    const hours = Math.floor(timestamp / (1000 * 60 * 60));
-    const minutes = Math.floor(
-      (timestamp % (1000 * 60 * 60)) / (1000 * 60)
-    );
-    setTimeLeft(
-      `${hours} ${getPlural(hours, ['час', 'часа', 'часов'])} ${minutes} ${getPlural(minutes, ['минута', 'минуты', 'минут'])}`
-    );
-  };
+export const Timer: FC<TimerProps> = ({ timestamp, onRestart }) => {
+  const [timeLeft, setTimeLeft] = useState('');
+  const [time, setTime] = useState(timestamp);
 
   useEffect(() => {
-    calculateTimeLeft();
-    const timer = setInterval(calculateTimeLeft, 1000);
+    let timer: NodeJS.Timeout;
+
+    const timerStart = () => {
+      const hours = Math.floor(time / (1000 * 60 * 60));
+      const minutes = Math.floor((time % (1000 * 60 * 60)) / (1000 * 60));
+      setTimeLeft(
+        `${hours} ${getPlural(hours, ['час', 'часа', 'часов'])} ${minutes} ${getPlural(minutes, ['минута', 'минуты', 'минут'])}`
+      );
+
+      timer = setInterval(
+        () => setTime((currentTime) => {
+          const newTime = currentTime - 1000;
+          if (newTime <= 0)
+          {
+            return onRestart();
+          }
+          return newTime;
+        }),
+        1000
+      );
+    };
+
+    timerStart();
+
     return () => clearInterval(timer);
-  }, [timestamp]);
+  }, [time]);
 
   return (
     <div className="h-11 flex-col justify-center items-center gap-1 flex">

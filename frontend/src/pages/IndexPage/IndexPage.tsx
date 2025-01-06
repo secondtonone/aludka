@@ -1,12 +1,17 @@
-import { type FC } from 'react';
+import { useRive, useStateMachineInput } from '@rive-app/react-canvas';
+import { useState, type FC } from 'react';
 
 import { Page } from '@/app/layouts';
 import { useContract } from '@/entities/contracts';
 import { LotteryCard } from '@/features';
 import { FAQPanel, makeTransaction, timeUntilUTC } from '@/shared';
 import { Timer } from '@/shared/ui/Timer';
-import { Button, FixedLayout } from '@telegram-apps/telegram-ui';
-import { useTonAddress, useTonConnectModal, useTonConnectUI } from '@tonconnect/ui-react';
+import { Button, FixedLayout, Snackbar } from '@telegram-apps/telegram-ui';
+import {
+  useTonAddress,
+  useTonConnectModal,
+  useTonConnectUI,
+} from '@tonconnect/ui-react';
 import { useTranslation } from 'react-i18next';
 
 export const IndexPage: FC = () => {
@@ -14,9 +19,23 @@ export const IndexPage: FC = () => {
   const [tonConnectUI] = useTonConnectUI();
   const { open: openTonConnectModal } = useTonConnectModal();
   const userFriendlyAddress = useTonAddress();
+  const [isPending, setIsPending] = useState(false);
+  const [isAcceptedShown, setSnackbarShown] = useState(false);
+  const [isRejectedShown, setSnackbarRejectedShown] = useState(false);
+
+  const { rive, RiveComponent } = useRive({
+    src: '/confetti.riv',
+    stateMachines: 'StateMachine',
+    autoplay: true,
+  });
+
+  const startAnimation = useStateMachineInput(
+    rive,
+    'StateMachine',
+    'Fire'
+  );
 
   const timestamp = timeUntilUTC(0);
-
 
   const {
     data: contract = {
@@ -26,13 +45,42 @@ export const IndexPage: FC = () => {
       entryFee: '0.503',
       totalPlayers: 1,
       totalAmount: '1.45',
-      balance: '1.45'
+      balance: '1.45',
     },
-    isLoading
+    isLoading,
   } = useContract();
 
+  const handler = async () => {
+    setIsPending(true);
+    if (!userFriendlyAddress)
+    {
+      openTonConnectModal();
+    } else
+    {
+      try
+      {
+        await makeTransaction({
+          params: {
+            price: totalPrice,
+            comment: 'join',
+          },
+          provider: tonConnectUI,
+        });
+
+        setSnackbarShown(true);
+        startAnimation?.fire();
+      } catch (error)
+      {
+        setSnackbarRejectedShown(true);
+      }
+    }
+    setIsPending(false);
+  };
+
   const totalPrice = parseFloat(contract.entryFee) + 0.003;
-  const price = parseFloat(contract.balance) * parseInt(contract.prizePercentage) / 100000;
+  const price =
+    (parseFloat(contract.balance) * parseInt(contract.prizePercentage)) /
+    100000;
 
   return (
     <Page>
@@ -46,40 +94,34 @@ export const IndexPage: FC = () => {
         footer={<FAQPanel />}
         isLoading={isLoading}
       />
+      {isAcceptedShown && (
+        <Snackbar
+          description="Розыгрыш будет выполняться через указаное время"
+          children="Вы учавствуете"
+          onClose={() => setSnackbarShown(false)}
+          duration={10000}
+        />
+      )}
 
+      {isRejectedShown && (
+        <Snackbar
+          description="Что то случилось, попробуйте еще раз"
+          children="Вы не учавствуете"
+          onClose={() => setSnackbarRejectedShown(false)}
+          duration={10000}
+        />
+      )}
+      <RiveComponent className="absolute w-full h-full top-0 mt-[20%] right-0 left-0 pointer-events-none" />
       <FixedLayout
         vertical="bottom"
         style={{
           padding: 16,
         }}
         className="gap-4 items-center justify-center rounded-tl-2xl rounded-tr-2xl shadow flex flex-col bg-white dark:bg-black">
-        <Timer timestamp={timestamp} />
+        <Timer timestamp={timestamp} onRestart={() => timeUntilUTC(0)} />
         <Button
-          onClick={async () => {
-            if (!userFriendlyAddress)
-            {
-              openTonConnectModal();
-            } else
-            {
-              try
-              {
-                await makeTransaction(
-                  {
-                    params: {
-                      price: totalPrice,
-                      comment: 'join',
-                    },
-                    provider: tonConnectUI,
-                  }
-                );
-
-                console.log('Вы учавствуете в розыгрыше');
-              } catch (error)
-              {
-                console.log(error);
-              }
-            }
-          }}
+          onClick={handler}
+          loading={isPending}
           size="l"
           stretched
           className="!max-w-md !font-inter !rounded-3xl">

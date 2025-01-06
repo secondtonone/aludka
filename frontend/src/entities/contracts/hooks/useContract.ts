@@ -7,5 +7,6 @@ export function useContract(enabled = true) {
     queryFn: getContract,
     select: (res) => res.data,
     enabled,
+    refetchInterval: 1000 * 60 * 1,
   });
 }

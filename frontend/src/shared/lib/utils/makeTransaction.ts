@@ -33,9 +33,9 @@ export const makeTransaction = async ({
       });
     } catch (e) {
       if (e instanceof UserRejectsError) {
-        new Error('You rejected the transaction. Please confirm it to send to the blockchain');
+        throw new Error('You rejected the transaction. Please confirm it to send to the blockchain');
       } else {
-        new Error('Unknown error happened');
+        throw new Error('Unknown error happened');
       }
     }
   };
