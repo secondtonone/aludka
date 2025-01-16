@@ -7,8 +7,8 @@
     "type-check": "tsc --noEmit",
     "scripts:transactions": "tsx --env-file=../.env ./transactions.ts",
     "scripts:info": "tsx --env-file=../.env ./contractInfo.ts",
-    "trigger:dev": "pnpm dlx trigger.dev@latest dev",
-    "trigger:deploy": "pnpm dlx trigger.dev@latest deploy"
+    "trigger:dev": "pnpm dlx trigger.dev@3.3.7 dev",
+    "trigger:deploy": "pnpm dlx trigger.dev@3.3.7 deploy"
   },
   "keywords": [],
   "author": "",
