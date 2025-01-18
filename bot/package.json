@@ -1,0 +1,22 @@
+{
+  "name": "bot",
+  "version": "1.2.2",
+  "description": "Bot for app",
+  "main": "dist/bot.js",
+  "scripts": {
+    "build": "tsc && pnpm link",
+    "start": "node --env-file=../.env dist/app.js",
+    "run": "pnpm build && pnpm start",
+    "type-check": "tsc --noEmit",
+    "dev": "tsx watch --env-file=../.env ./src/app.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "db": "workspace:*"
+  },
+  "devDependencies": {
+    "@grammyjs/runner": "^2.0.3"
+  }
+}

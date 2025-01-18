@@ -4,3 +4,4 @@ packages:
   - db
   - scripts
   - ton-client
+  - bot
