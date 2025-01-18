@@ -5,7 +5,7 @@ import { startCommandConstructor } from './start';
 
 const token = process.env.BOT_TOKEN;
 // const adminId = parseInt(process.env.ADMIN_TG_ID || '');
-const isProd = process.env.NODE_ENV === 'production';
+// const isProd = process.env.NODE_ENV === 'production';
 
 if (!token) throw new Error('BOT_TOKEN is unset');
 

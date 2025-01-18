@@ -11,7 +11,6 @@ export default defineConfig(({ mode }) => {
 
   return {
     define: {
-      'process.env.TON_API_CLIENT_KEY': `'${env.TON_API_CLIENT_KEY}'`,
       'process.env.TON_CENTER_API_CLIENT_KEY': `'${env.TON_CENTER_API_CLIENT_KEY}'`,
       'process.env.API_URL': `'${env.API_URL}'`,
       'process.env.WEB_APP': `'${env.WEB_APP}'`,
