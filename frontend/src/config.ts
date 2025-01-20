@@ -8,6 +8,8 @@ const config = {
   isTestnet: process.env.IS_TESTNET === undefined
   ? false
   : (process.env.IS_TESTNET as unknown as boolean),
+  mixpanelToken:
+    process.env.MIXPANEL_TOKEN === undefined ? '' : process.env.MIXPANEL_TOKEN,
 };
 
 const envSchema = z.object({
@@ -16,6 +18,7 @@ const envSchema = z.object({
   webAppUrl: z.string().min(1),
   contractId: z.string().min(1),
   isTestnet: z.boolean(),
+  mixpanelToken: z.string().min(1),
 });
 
 const env = envSchema.parse(config);

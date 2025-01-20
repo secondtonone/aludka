@@ -1,5 +1,5 @@
 import { useRive, useStateMachineInput } from '@rive-app/react-canvas';
-import { useState, type FC } from 'react';
+import { useEffect, useState, type FC } from 'react';
 
 import { Page } from '@/app/layouts';
 import { updateContract, useContract } from '@/entities/contracts';
@@ -12,6 +12,7 @@ import {
   useTonConnectModal,
   useTonConnectUI,
 } from '@tonconnect/ui-react';
+import mixpanel from 'mixpanel-browser';
 import { useTranslation } from 'react-i18next';
 
 export const IndexPage: FC = () => {
@@ -22,6 +23,10 @@ export const IndexPage: FC = () => {
   const [isPending, setIsPending] = useState(false);
   const [isAcceptedShown, setSnackbarShown] = useState(false);
   const [isRejectedShown, setSnackbarRejectedShown] = useState(false);
+
+  useEffect(() => {
+    mixpanel.track('Page View');
+  }, []);
 
   const { rive, RiveComponent } = useRive({
     src: '/confetti.riv',

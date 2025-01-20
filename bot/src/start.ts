@@ -13,25 +13,9 @@ export const startCommandConstructor = (callback: (ctx: CommandContext<Context>)
 
   if (typeof callback === 'function') callback(ctx);
 
-  /* if (telegramId && lang) {
-    const dbUser = await getUserByTgId(`${telegramId}`);
-
-    const userId = dbUser?.userId;
-
-    if (!userId) {
-      await preparedUserModule.insertUser({
-        telegramId: `${telegramId}`,
-        lang,
-        refId: ulid(),
-      });
-    }
-
-    await client.end();
-  } */
-
   return await ctx.api.sendAnimation(
     ctx.msg?.chat?.id,
-    isProd ? `${webApp}/light.mp4` : 'https://grandgalore.vercel.app/light.mp4',
+    isProd ? `${webApp}/light.mp4` : 'https://aludka.vercel.app/light.mp4',
     {
       caption: introductionMessage,
       reply_markup: {

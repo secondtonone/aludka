@@ -16,6 +16,7 @@ export default defineConfig(({ mode }) => {
       'process.env.WEB_APP': `'${env.WEB_APP}'`,
       'process.env.CONTRACT_ADDRESS': `'${env.CONTRACT_ADDRESS}'`,
       'process.env.IS_TESTNET': env.IS_TESTNET,
+      'process.env.MIXPANEL_TOKEN': `'${env.MIXPANEL_TOKEN}'`,
     },
     /* base: '/reactjs-template', */
     plugins: [

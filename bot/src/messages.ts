@@ -3,13 +3,13 @@ const messages = {
     introductionMessage: `Добро пожаловать`,
     start: 'Войти',
     subscribe: 'Подписаться на канал',
-    channelUrl: 'https://t.me/glaztota',
+    channelUrl: '',
   },
   en: {
     introductionMessage: `Welcome`,
     start: "Enter",
     subscribe: 'Subscribe to the channel',
-    channelUrl: 'https://t.me/thotheye',
+    channelUrl: '',
   }
 } as const;
 

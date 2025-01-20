@@ -8,7 +8,10 @@
     "scripts:transactions": "tsx --env-file=../.env ./transactions.ts",
     "scripts:info": "tsx --env-file=../.env ./contractInfo.ts",
     "trigger:dev": "pnpm dlx trigger.dev@3.3.7 dev",
-    "trigger:deploy": "pnpm dlx trigger.dev@3.3.7 deploy"
+    "trigger:deploy": "pnpm dlx trigger.dev@3.3.7 deploy",
+    "link": "node --experimental-fetch bot/link.mjs",
+    "link:local": "node --experimental-fetch -r dotenv/config bot/link.mjs",
+    "unlink": "node --experimental-fetch -r dotenv/config bot/unlink.mjs"
   },
   "keywords": [],
   "author": "",
