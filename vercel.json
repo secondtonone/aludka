@@ -1,5 +1,8 @@
 {
   "functions": {
+    "api/bot.ts": {
+      "maxDuration": 10
+    },
     "api/serverless.ts": {
       "maxDuration": 60
     }
