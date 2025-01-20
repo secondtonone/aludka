@@ -8,7 +8,6 @@
     "front:dev": "pnpm --filter frontend dev",
     "server:dev": "pnpm --filter server dev",
     "bot:dev": "pnpm --filter bot dev",
-    "link": "pnpm --filter scripts link",
     "trigger:deploy": "pnpm --filter scripts trigger:deploy",
     "format": "prettier --config ./.prettierrc -w '**/*.{tsx,ts}' && git update-index --again",
     "lint": "eslint . --ext .ts",

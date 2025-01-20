@@ -4,7 +4,7 @@
   "description": "Bot for app",
   "main": "dist/bot.js",
   "scripts": {
-    "build": "tsc && pnpm link",
+    "build": "tsc && pnpm --filter scripts bot:link",
     "start": "node --env-file=../.env dist/app.js",
     "run": "pnpm build && pnpm start",
     "type-check": "tsc --noEmit",

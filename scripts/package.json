@@ -9,9 +9,8 @@
     "scripts:info": "tsx --env-file=../.env ./contractInfo.ts",
     "trigger:dev": "pnpm dlx trigger.dev@3.3.7 dev",
     "trigger:deploy": "pnpm dlx trigger.dev@3.3.7 deploy",
-    "link": "node --experimental-fetch bot/link.mjs",
-    "link:local": "node --experimental-fetch -r dotenv/config bot/link.mjs",
-    "unlink": "node --experimental-fetch -r dotenv/config bot/unlink.mjs"
+    "bot:link": "node --experimental-fetch --env-file=../.env bot/link.mjs",
+    "bot:unlink": "node --experimental-fetch --env-file=../.env bot/unlink.mjs"
   },
   "keywords": [],
   "author": "",

@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import request from './request.mjs';
 
 const token = process.env.BOT_TOKEN;
