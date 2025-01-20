@@ -3,13 +3,13 @@ const messages = {
     introductionMessage: `Добро пожаловать`,
     start: 'Войти',
     subscribe: 'Подписаться на канал',
-    channelUrl: '',
+    channelUrl: 'https://t.me/aludka',
   },
   en: {
     introductionMessage: `Welcome`,
     start: "Enter",
     subscribe: 'Subscribe to the channel',
-    channelUrl: '',
+    channelUrl: 'https://t.me/aludka',
   }
 } as const;
 
