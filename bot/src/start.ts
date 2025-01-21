@@ -3,7 +3,6 @@ import type { CommandContext, Context } from 'grammy';
 import getMessages from './messages';
 
 const webApp = process.env.WEB_APP || '';
-const webAppTg = `${webApp}/tg`;
 const isProd = process.env.NODE_ENV === 'production';
 
 export const startCommandConstructor = (callback: (ctx: CommandContext<Context>) => void) => async (ctx: CommandContext<Context>) => {
@@ -20,7 +19,7 @@ export const startCommandConstructor = (callback: (ctx: CommandContext<Context>)
       caption: introductionMessage,
       reply_markup: {
         inline_keyboard: [
-          [{ text: start, web_app: { url: webAppTg ?? '' } }],
+          [{ text: start, web_app: { url: webApp } }],
           [{ text: subscribe, url: channelUrl }],
         ],
       },

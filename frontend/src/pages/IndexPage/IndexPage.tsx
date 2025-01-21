@@ -4,7 +4,7 @@ import { useEffect, useState, type FC } from 'react';
 import { Page } from '@/app/layouts';
 import { updateContract, useContract } from '@/entities/contracts';
 import { LotteryCard } from '@/features';
-import { FAQPanel, makeTransaction, timeUntilUTC } from '@/shared';
+import { FAQPanel, makeTransaction, timeUntilUTC, useFullscreenOptions } from '@/shared';
 import { Timer } from '@/shared/ui/Timer';
 import { Button, FixedLayout, Snackbar } from '@telegram-apps/telegram-ui';
 import {
@@ -39,6 +39,8 @@ export const IndexPage: FC = () => {
     'StateMachine',
     'Fire'
   );
+
+  const { isFullscreen, totalSafeAreaBottom } = useFullscreenOptions();
 
   const timestamp = timeUntilUTC(0);
 
@@ -126,7 +128,8 @@ export const IndexPage: FC = () => {
       <FixedLayout
         vertical="bottom"
         style={{
-          padding: 16,
+          padding: '16px',
+          paddingBottom: isFullscreen ? `${totalSafeAreaBottom}px` : '16px',
         }}
         className="gap-4 items-center justify-center rounded-tl-2xl rounded-tr-2xl shadow flex flex-col bg-white dark:bg-black">
         <Timer timestamp={timestamp} onRestart={() => timeUntilUTC(0)} />

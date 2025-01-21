@@ -6,6 +6,7 @@ import {
   isTMA,
   miniApp,
   swipeBehavior,
+  useLaunchParams,
   viewport as vp,
 } from '@telegram-apps/sdk-react';
 import { AppRoot } from '@telegram-apps/telegram-ui';
@@ -41,6 +42,7 @@ export function App() {
   const { i18n: { language, changeLanguage } } = useTranslation();
   const initData = initDataUser();
   const lang = initData?.languageCode || language.split('-')[0];
+  const { platform } = useLaunchParams();
 
   useEffect(() => {
     if (lang !== language) changeLanguage(lang);
@@ -54,6 +56,19 @@ export function App() {
       miniApp.ready();
     }
   }, []);
+
+  useEffect(() => {
+    const handler = async () => {
+      if (
+        vp.requestFullscreen.isAvailable() &&
+        (platform === 'ios' || platform === 'android')
+      )
+        await vp.requestFullscreen();
+    }
+
+    handler();
+  }, [platform]);
+
 
   const userId = initData?.id;
 
