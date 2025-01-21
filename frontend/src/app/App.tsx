@@ -5,9 +5,9 @@ import {
   initDataUser,
   isTMA,
   miniApp,
+  retrieveLaunchParams,
   swipeBehavior,
-  useLaunchParams,
-  viewport as vp,
+  viewport as vp
 } from '@telegram-apps/sdk-react';
 import { AppRoot } from '@telegram-apps/telegram-ui';
 import { Locales, TonConnectUIProvider } from '@tonconnect/ui-react';
@@ -37,12 +37,10 @@ function ErrorBoundaryError({ error }: { error: unknown }) {
 }
 
 export function App() {
-  // const lp = useLaunchParams();
   const { isDark } = useTheme();
   const { i18n: { language, changeLanguage } } = useTranslation();
   const initData = initDataUser();
   const lang = initData?.languageCode || language.split('-')[0];
-  const { platform } = useLaunchParams();
 
   useEffect(() => {
     if (lang !== language) changeLanguage(lang);
@@ -59,15 +57,23 @@ export function App() {
 
   useEffect(() => {
     const handler = async () => {
+      const { platform } = retrieveLaunchParams();
       if (
         vp.requestFullscreen.isAvailable() &&
+        platform &&
         (platform === 'ios' || platform === 'android')
       )
         await vp.requestFullscreen();
     }
 
-    handler();
-  }, [platform]);
+    try
+    {
+      handler();
+    } catch (error)
+    {
+      console.log('Not in TG :)');
+    }
+  }, []);
 
 
   const userId = initData?.id;
