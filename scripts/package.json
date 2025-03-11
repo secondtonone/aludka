@@ -1,14 +1,14 @@
 {
   "name": "scripts",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "description": "Scripts for app",
   "scripts": {
     "build": "tsc",
     "type-check": "tsc --noEmit",
     "scripts:transactions": "tsx --env-file=../.env ./transactions.ts",
     "scripts:info": "tsx --env-file=../.env ./contractInfo.ts",
-    "trigger:dev": "pnpm dlx trigger.dev@latest dev",
-    "trigger:deploy": "pnpm dlx trigger.dev@latest deploy",
+    "trigger:dev": "pnpm dlx trigger.dev@3.3.17 dev",
+    "trigger:deploy": "pnpm dlx trigger.dev@3.3.17 deploy",
     "bot:link": "node --experimental-fetch --env-file=../.env bot/link.mjs",
     "bot:unlink": "node --experimental-fetch --env-file=../.env bot/unlink.mjs"
   },
@@ -16,11 +16,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@trigger.dev/sdk": "^3.3.7",
+    "@trigger.dev/sdk": "^3.3.17",
     "db": "workspace:*",
     "ton-client": "workspace:*"
   },
   "devDependencies": {
-    "@trigger.dev/build": "^3.3.7"
+    "@trigger.dev/build": "^3.3.17"
   }
 }
