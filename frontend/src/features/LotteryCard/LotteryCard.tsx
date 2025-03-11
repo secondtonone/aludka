@@ -76,8 +76,8 @@ export const LotteryCard: FC<LotteryCardProps> = ({
                 />
               </div>
             ) : (
-              <div className="text-[#0c2129] text-xl font-bold uppercase leading-normal tracking-tight">
-                {price} {currency}
+              <div className="text-[#0c2129] text-xl font-bold uppercase leading-normal tracking-tight flex flex-row">
+                <div className="text-ellipsis max-w-40 overflow-hidden">{price}</div> {currency}
               </div>
             )}
 
